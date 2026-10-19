@@ -146,6 +146,24 @@
     section{padding:56px 0}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  /* ---------- modulo di contatto ---------- */
+  button.btn{cursor:pointer;border:2px solid transparent;font-family:Archivo,sans-serif}
+  dialog.modulo{border:0;padding:0;border-radius:6px;max-width:520px;width:calc(100% - 32px);background:var(--paper);color:var(--ink);box-shadow:0 20px 60px rgba(20,32,43,.45)}
+  dialog.modulo::backdrop{background:rgba(20,32,43,.65)}
+  .modulo form{padding:28px 24px 24px}
+  .modulo h2{font-size:26px;margin-bottom:6px}
+  .modulo p.sub{margin:0 0 18px;color:var(--muted);font-size:16px}
+  .modulo label{display:block;font-weight:600;font-size:15px;margin:12px 0 4px}
+  .modulo input[type=text],.modulo input[type=email],.modulo input[type=tel],.modulo textarea{width:100%;font:inherit;font-size:17px;padding:10px 12px;border:2px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .modulo textarea{min-height:90px;resize:vertical}
+  .modulo input:focus,.modulo textarea:focus{border-color:var(--ink);outline:none}
+  .modulo .consenso{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:15px;margin-top:14px}
+  .modulo .consenso input{margin-top:5px;width:18px;height:18px;flex:none}
+  .modulo .azioni{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .modulo .esito{margin-top:14px;font-size:16px;font-weight:600}
+  .modulo .esito.ok{color:var(--ok)} .modulo .esito.ko{color:var(--stop)}
+  .modulo .nascosto{position:absolute;left:-9999px;height:0;overflow:hidden}
 </style>
 </head>
 <body>
@@ -172,7 +190,7 @@
       <h1>I documenti del cantiere in ordine. Le scadenze, sotto controllo.</h1>
       <p class="lead">GENESIVOX raccoglie i documenti di sicurezza di imprese e lavoratori, registra le presenze con un QR e avvisa chi deve intervenire prima che un attestato scada.</p>
       <div class="actions">
-        <a class="btn btn-signal" href="mailto:info@genesivox.com?subject=Richiesta%20prova%20gratuita%20GENESIVOX">Richiedi la prova gratuita</a>
+        <button type="button" class="btn btn-signal" data-apri-modulo>Richiedi la prova gratuita</button>
         <a class="btn btn-line" href="https://app.genesivox.com">Accedi all’app</a>
       </div>
       <small>Si usa dal telefono, senza installare niente. Pensato per il D.Lgs. 81/2008.</small>
@@ -276,7 +294,7 @@
       <p>30 giorni senza costi. Se attivi un cantiere entro 14 giorni, la prova si estende fino a 60.</p>
     </div>
     <div class="actions">
-      <a class="btn btn-signal" href="mailto:info@genesivox.com?subject=Richiesta%20prova%20gratuita%20GENESIVOX">Richiedi la prova gratuita</a>
+      <button type="button" class="btn btn-signal" data-apri-modulo>Richiedi la prova gratuita</button>
       <a class="btn btn-line" href="https://app.genesivox.com">Hai già un account? Accedi</a>
     </div>
   </div>
@@ -297,5 +315,52 @@
   </div>
 </footer>
 
+
+<dialog class="modulo" id="modulo" aria-labelledby="modulo-titolo">
+  <form id="form-contatto" novalidate>
+    <h2 id="modulo-titolo">Richiedi la prova gratuita</h2>
+    <p class="sub">Lascia i tuoi dati: ti ricontattiamo noi.</p>
+    <label for="f-nome">Nome e cognome *</label>
+    <input type="text" id="f-nome" name="nome" autocomplete="name" required maxlength="100">
+    <label for="f-azienda">Azienda</label>
+    <input type="text" id="f-azienda" name="azienda" autocomplete="organization" maxlength="120">
+    <label for="f-email">Email *</label>
+    <input type="email" id="f-email" name="email" autocomplete="email" required maxlength="150">
+    <label for="f-tel">Telefono</label>
+    <input type="tel" id="f-tel" name="telefono" autocomplete="tel" maxlength="40">
+    <label for="f-msg">Messaggio</label>
+    <textarea id="f-msg" name="messaggio" maxlength="1500"></textarea>
+    <div class="nascosto" aria-hidden="true"><label>Sito web <input type="text" name="sito" tabindex="-1" autocomplete="off"></label></div>
+    <label class="consenso"><input type="checkbox" id="f-privacy" name="privacy" required>
+      <span>Ho letto l’<a href="https://app.genesivox.com/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei miei dati per essere ricontattato. *</span></label>
+    <div class="azioni">
+      <button type="submit" class="btn btn-signal" id="f-invia">Invia richiesta</button>
+      <button type="button" class="btn btn-line" id="f-chiudi">Chiudi</button>
+    </div>
+    <div class="esito" id="f-esito" role="status" aria-live="polite"></div>
+  </form>
+</dialog>
+<script>
+(function(){
+  var d=document.getElementById('modulo'),f=document.getElementById('form-contatto'),e=document.getElementById('f-esito'),b=document.getElementById('f-invia');
+  document.querySelectorAll('[data-apri-modulo]').forEach(function(x){x.addEventListener('click',function(){e.textContent='';e.className='esito';b.disabled=false;d.showModal();});});
+  document.getElementById('f-chiudi').addEventListener('click',function(){d.close();});
+  d.addEventListener('click',function(ev){if(ev.target===d)d.close();});
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var fd=new FormData(f);
+    var dati={nome:fd.get('nome')||'',azienda:fd.get('azienda')||'',email:fd.get('email')||'',telefono:fd.get('telefono')||'',messaggio:fd.get('messaggio')||'',sito:fd.get('sito')||'',privacy:!!fd.get('privacy')};
+    if(!dati.nome.trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(dati.email.trim())){e.textContent='Inserisci nome ed email validi.';e.className='esito ko';return;}
+    if(!dati.privacy){e.textContent='Serve il consenso alla privacy.';e.className='esito ko';return;}
+    b.disabled=true;e.textContent='Invio in corso…';e.className='esito';
+    fetch('/api/contatto',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(dati)})
+      .then(function(r){return r.json().then(function(j){return{ok:r.ok&&j.ok};});})
+      .then(function(r){
+        if(r.ok){f.reset();e.textContent='Grazie! Abbiamo ricevuto la richiesta e ti ricontatteremo presto.';e.className='esito ok';}
+        else{b.disabled=false;e.textContent='Invio non riuscito. Riprova o scrivi a info@genesivox.com.';e.className='esito ko';}})
+      .catch(function(){b.disabled=false;e.textContent='Connessione assente. Riprova tra poco.';e.className='esito ko';});
+  });
+})();
+</script>
 </body>
 </html>
