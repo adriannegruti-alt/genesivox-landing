@@ -14,10 +14,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#14202B;        /* inchiostro blu notte: testo e pannelli scuri */
+    --ink:#0B1B33;        /* inchiostro blu notte: testo e pannelli scuri */
     --concrete:#E7EAEC;   /* calcestruzzo: fondo pagina */
     --paper:#F7F8F8;      /* superfici chiare */
-    --signal:#F5C400;     /* giallo segnaletica: azione e attenzione */
+    --signal:#F5C400;     /* giallo segnaletica: solo avvisi e strisce di cantiere */
+    --brand:#19D3F0;      /* azzurro del logo: pulsanti e azioni */
     --ok:#1E7F52;         /* in regola */
     --warn:#B87A00;       /* in scadenza (testo) */
     --stop:#C23A2E;       /* scaduto */
@@ -46,8 +47,8 @@
   nav.top a:hover{opacity:1;text-decoration:underline}
   .btn{display:inline-block;font-family:Archivo,sans-serif;font-stretch:108%;font-weight:700;font-size:16px;
     padding:13px 22px;border-radius:3px;text-decoration:none;border:2px solid transparent;cursor:pointer}
-  .btn-signal{background:var(--signal);color:var(--ink)}
-  .btn-signal:hover{background:#FFD21F}
+  .btn-signal{background:var(--brand);color:var(--ink)}
+  .btn-signal:hover{background:#5CE3F7}
   .btn-line{border-color:var(--ink);color:var(--ink)}
   .btn-line:hover{background:var(--ink);color:#fff}
   header.top .btn{padding:9px 16px;font-size:15px}
@@ -103,7 +104,7 @@
   /* passi (qui è una vera sequenza) */
   .steps{counter-reset:s;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;list-style:none;margin:0;padding:0}
   .steps li{counter-increment:s;padding-top:18px;border-top:3px solid var(--ink);position:relative}
-  .steps li::before{content:counter(s);position:absolute;top:-3px;right:0;background:var(--signal);color:var(--ink);
+  .steps li::before{content:counter(s);position:absolute;top:-3px;right:0;background:var(--brand);color:var(--ink);
     font-family:Archivo,sans-serif;font-weight:800;width:34px;height:34px;display:grid;place-items:center;font-size:17px}
   .steps h3{font-size:19px;font-weight:700;margin-bottom:8px;padding-right:40px}
   .steps p{margin:0;font-size:17px;color:#26343F}
@@ -123,7 +124,7 @@
   .cta .actions{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
   .cta .btn-line{border-color:#fff;color:#fff}
   .cta .btn-line:hover{background:#fff;color:var(--ink)}
-  .cta :focus-visible{outline-color:var(--signal)}
+  .cta :focus-visible{outline-color:var(--brand)}
 
   footer{padding:36px 0 44px;color:var(--muted);font-size:15px}
   footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px}
