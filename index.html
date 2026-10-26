@@ -182,6 +182,25 @@
   .modulo .esito{margin-top:14px;font-size:16px;font-weight:600}
   .modulo .esito.ok{color:var(--ok)} .modulo .esito.ko{color:var(--stop)}
   .modulo .nascosto{position:absolute;left:-9999px;height:0;overflow:hidden}
+  .modulo select{width:100%;font:inherit;font-size:17px;padding:10px 12px;border:2px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+  .modulo select:focus{border-color:var(--ink);outline:none}
+
+  /* ---------- checklist gratuita ---------- */
+  .lead-mag{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+  .doc-card{background:#fff;border-radius:6px;box-shadow:0 2px 0 #0b141c22,0 24px 40px -24px rgba(20,32,43,.45);overflow:hidden;max-width:340px;justify-self:center;width:100%;transform:rotate(-2deg)}
+  .doc-card .band{height:14px;background:repeating-linear-gradient(-45deg,var(--signal) 0 10px,var(--ink) 10px 20px)}
+  .doc-card .h{background:var(--ink);color:#fff;padding:16px 20px}
+  .doc-card .h b{font-family:Archivo,sans-serif;font-stretch:112%;font-weight:800;font-size:21px;line-height:1.1;display:block}
+  .doc-card .h span{color:#19D3F0;font-family:Archivo,sans-serif;font-weight:800;letter-spacing:.06em;font-size:13px}
+  .doc-card ul{list-style:none;margin:0;padding:10px 20px 16px}
+  .doc-card li{display:flex;gap:10px;align-items:center;font-size:15px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .doc-card li::before{content:"";width:13px;height:13px;border:2px solid var(--ink);border-radius:2px;flex:none}
+  .doc-card li.more{border:0;color:var(--muted);font-size:14px}
+  .doc-card li.more::before{display:none}
+  .lead-mag ul.punti{margin:18px 0 26px;padding:0;list-style:none}
+  .lead-mag ul.punti li{padding:6px 0 6px 28px;position:relative}
+  .lead-mag ul.punti li::before{content:"";position:absolute;left:2px;top:14px;width:12px;height:7px;border-left:3px solid var(--ok);border-bottom:3px solid var(--ok);transform:rotate(-45deg)}
+  @media (max-width:900px){.lead-mag{grid-template-columns:1fr;gap:36px}.doc-card{justify-self:start}}
 </style>
 </head>
 <body>
@@ -196,6 +215,7 @@
       <a class="hide-s" href="#cosa-fa">Cosa fa</a>
       <a class="hide-s" href="#chi-lo-usa">Chi lo usa</a>
       <a class="hide-s" href="#come-si-parte">Come si parte</a>
+      <a class="hide-s" href="#checklist">Checklist gratuita</a>
       <a class="btn btn-signal" href="https://app.genesivox.com">Accedi</a>
     </nav>
   </div>
@@ -290,6 +310,7 @@
   </div>
 </section>
 
+
 <section>
   <div class="wrap trust">
     <div>
@@ -302,6 +323,34 @@
       <li>Le email di avviso non contengono mai dati sanitari.</li>
       <li>I file sono in archivio privato, non pubblico.</li>
     </ul>
+  </div>
+</section>
+
+<section id="checklist" class="alt">
+  <div class="wrap lead-mag">
+    <div class="doc-card" aria-hidden="true">
+      <div class="band"></div>
+      <div class="h"><span>GENESIVOX</span><b>Checklist dei 30 documenti di cantiere</b></div>
+      <ul>
+        <li>POS – Piano Operativo di Sicurezza</li>
+        <li>DURC – validità 120 giorni</li>
+        <li>Attestati di formazione</li>
+        <li>Idoneità sanitarie</li>
+        <li class="more">… e altri 26 documenti</li>
+      </ul>
+    </div>
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <h2>Scarica gratis la checklist dei 30 documenti di cantiere</h2>
+        <p>Il PDF da stampare con tutti i documenti di sicurezza da tenere pronti: piani, idoneità delle imprese, lavoratori, macchine e controlli.</p>
+      </div>
+      <ul class="punti">
+        <li>Riferimento di legge per ogni documento</li>
+        <li>Quali documenti scadono e ogni quanto</li>
+        <li>Caselle da spuntare, prima di un sopralluogo</li>
+      </ul>
+      <button type="button" class="btn btn-signal" data-apri-checklist>Ricevi la checklist via email</button>
+    </div>
   </div>
 </section>
 
@@ -375,6 +424,68 @@
       .then(function(r){return r.json().then(function(j){return{ok:r.ok&&j.ok};});})
       .then(function(r){
         if(r.ok){f.reset();e.textContent='Grazie! Abbiamo ricevuto la richiesta e ti ricontatteremo presto.';e.className='esito ok';}
+        else{b.disabled=false;e.textContent='Invio non riuscito. Riprova o scrivi a info@genesivox.com.';e.className='esito ko';}})
+      .catch(function(){b.disabled=false;e.textContent='Connessione assente. Riprova tra poco.';e.className='esito ko';});
+  });
+})();
+</script>
+
+<dialog class="modulo" id="modulo-checklist" aria-labelledby="checklist-titolo">
+  <form id="form-checklist" novalidate>
+    <h2 id="checklist-titolo">Ricevi la checklist gratuita</h2>
+    <p class="sub">Ti mandiamo subito il PDF via email.</p>
+    <label for="c-nome">Nome e cognome *</label>
+    <input type="text" id="c-nome" name="nome" autocomplete="name" required maxlength="100">
+    <label for="c-email">Email *</label>
+    <input type="email" id="c-email" name="email" autocomplete="email" required maxlength="150">
+    <label for="c-azienda">Azienda o studio</label>
+    <input type="text" id="c-azienda" name="azienda" autocomplete="organization" maxlength="120">
+    <label for="c-ruolo">Il tuo ruolo *</label>
+    <select id="c-ruolo" name="ruolo" required>
+      <option value="">Scegli…</option>
+      <option>Impresa edile</option>
+      <option>Coordinatore CSE/CSP</option>
+      <option>RSPP o consulente sicurezza</option>
+      <option>Committente</option>
+      <option>Altro</option>
+    </select>
+    <label for="c-cantieri">Cantieri attivi oggi</label>
+    <select id="c-cantieri" name="cantieri">
+      <option value="">Preferisco non dirlo</option>
+      <option>1</option><option>2-5</option><option>6-20</option><option>Più di 20</option>
+    </select>
+    <div class="nascosto" aria-hidden="true"><label>Sito web <input type="text" name="sito" tabindex="-1" autocomplete="off"></label></div>
+    <label class="consenso"><input type="checkbox" id="c-privacy" name="privacy" required>
+      <span>Ho letto l’<a href="https://app.genesivox.com/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei miei dati per ricevere la checklist. *</span></label>
+    <label class="consenso"><input type="checkbox" id="c-marketing" name="marketing">
+      <span>Acconsento a ricevere da GENESIVOX aggiornamenti e proposte commerciali via email (facoltativo).</span></label>
+    <div class="azioni">
+      <button type="submit" class="btn btn-signal" id="c-invia">Inviami la checklist</button>
+      <button type="button" class="btn btn-line" id="c-chiudi">Chiudi</button>
+    </div>
+    <div class="esito" id="c-esito" role="status" aria-live="polite"></div>
+  </form>
+</dialog>
+<script>
+(function(){
+  var d=document.getElementById('modulo-checklist'),f=document.getElementById('form-checklist'),e=document.getElementById('c-esito'),b=document.getElementById('c-invia');
+  function apri(){e.textContent='';e.className='esito';b.disabled=false;d.showModal();}
+  document.querySelectorAll('[data-apri-checklist]').forEach(function(x){x.addEventListener('click',apri);});
+  document.getElementById('c-chiudi').addEventListener('click',function(){d.close();});
+  d.addEventListener('click',function(ev){if(ev.target===d)d.close();});
+  if(location.hash==='#checklist'){setTimeout(apri,400);}
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var fd=new FormData(f);
+    var dati={nome:fd.get('nome')||'',email:fd.get('email')||'',azienda:fd.get('azienda')||'',ruolo:fd.get('ruolo')||'',cantieri:fd.get('cantieri')||'',sito:fd.get('sito')||'',privacy:!!fd.get('privacy'),marketing:!!fd.get('marketing')};
+    if(!dati.nome.trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(dati.email.trim())){e.textContent='Inserisci nome ed email validi.';e.className='esito ko';return;}
+    if(!dati.ruolo){e.textContent='Scegli il tuo ruolo.';e.className='esito ko';return;}
+    if(!dati.privacy){e.textContent='Serve il consenso alla privacy.';e.className='esito ko';return;}
+    b.disabled=true;e.textContent='Invio in corso…';e.className='esito';
+    fetch('/api/checklist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(dati)})
+      .then(function(r){return r.json().then(function(j){return{ok:r.ok&&j.ok};});})
+      .then(function(r){
+        if(r.ok){f.reset();e.textContent='Fatto! Ti abbiamo inviato la checklist via email. Se non la trovi, controlla nello spam.';e.className='esito ok';}
         else{b.disabled=false;e.textContent='Invio non riuscito. Riprova o scrivi a info@genesivox.com.';e.className='esito ko';}})
       .catch(function(){b.disabled=false;e.textContent='Connessione assente. Riprova tra poco.';e.className='esito ko';});
   });
