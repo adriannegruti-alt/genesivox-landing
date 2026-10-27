@@ -4,30 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GENESIVOX – Documenti, presenze e scadenze del cantiere</title>
-<meta name="description" content="GENESIVOX tiene in ordine i documenti di sicurezza del cantiere, registra le presenze con il QR e avvisa prima che un attestato scada. Per imprese edili, CSE, RSPP e committenti.">
+<meta name="description" content="GENESIVOX tiene in ordine i 30 documenti di sicurezza del cantiere, avvisa prima delle scadenze e registra le presenze con il QR. Per imprese edili, CSE, RSPP e committenti. Checklist gratuita.">
 <meta name="theme-color" content="#0B1B33">
-<link rel="canonical" href="https://genesivox.com/">
+<link rel="canonical" href="https://www.genesivox.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="GENESIVOX">
 <meta property="og:locale" content="it_IT">
-<meta property="og:url" content="https://genesivox.com/">
+<meta property="og:url" content="https://www.genesivox.com/">
 <meta property="og:title" content="GENESIVOX – Documenti, presenze e scadenze del cantiere">
 <meta property="og:description" content="GENESIVOX tiene in ordine i documenti di sicurezza del cantiere, registra le presenze con il QR e avvisa prima che un attestato scada.">
-<meta property="og:image" content="https://genesivox.com/og-image-v2.png">
+<meta property="og:image" content="https://www.genesivox.com/og-image-v2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="GENESIVOX – documenti, presenze e scadenze del cantiere">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="GENESIVOX – Documenti, presenze e scadenze del cantiere">
 <meta name="twitter:description" content="Documenti di sicurezza, presenze con QR e avvisi di scadenza per imprese edili, CSE, RSPP e committenti.">
-<meta name="twitter:image" content="https://genesivox.com/og-image-v2.png">
+<meta name="twitter:image" content="https://www.genesivox.com/og-image-v2.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="/apple-touch-icon(1).png">
+<link rel="preload" href="/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face{font-family:Archivo;src:url(/archivo.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+  @font-face{font-family:"Source Sans 3";src:url(/source-sans-3.woff2) format("woff2");font-weight:200 900;font-display:swap}
   :root{
     --ink:#0B1B33;        /* inchiostro blu notte: testo e pannelli scuri */
     --concrete:#E7EAEC;   /* calcestruzzo: fondo pagina */
@@ -167,6 +167,8 @@
 
   /* ---------- modulo di contatto ---------- */
   button.btn{cursor:pointer;border:2px solid transparent;font-family:Archivo,sans-serif}
+  button.btn-line{border-color:var(--ink);background:transparent}
+  button.btn-line:hover{background:var(--ink);color:#fff}
   dialog.modulo{border:0;padding:0;border-radius:6px;max-width:520px;width:calc(100% - 32px);background:var(--paper);color:var(--ink);box-shadow:0 20px 60px rgba(20,32,43,.45)}
   dialog.modulo::backdrop{background:rgba(20,32,43,.65)}
   .modulo form{padding:28px 24px 24px}
@@ -200,6 +202,20 @@
   .lead-mag ul.punti{margin:18px 0 26px;padding:0;list-style:none}
   .lead-mag ul.punti li{padding:6px 0 6px 28px;position:relative}
   .lead-mag ul.punti li::before{content:"";position:absolute;left:2px;top:14px;width:12px;height:7px;border-left:3px solid var(--ok);border-bottom:3px solid var(--ok);transform:rotate(-45deg)}
+  /* ---------- i 30 documenti ---------- */
+  .gruppi{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .gruppo{background:#fff;border-top:3px solid var(--ink);border-radius:0 0 4px 4px;padding:18px 20px 14px}
+  .gruppo h3{font-size:18px;font-weight:700;display:flex;gap:10px;align-items:baseline}
+  .gruppo h3 span{font-size:14px;color:var(--muted);font-weight:600}
+  .gruppo ol{margin:10px 0 0;padding:0;list-style:none}
+  .gruppo li{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px solid var(--line);font-size:16px;line-height:1.35}
+  .gruppo li:last-child{border-bottom:0}
+  .gruppo li em{font-style:normal;font-size:13px;font-weight:600;color:var(--warn);white-space:nowrap;padding-top:2px}
+  .doc-nota{margin-top:26px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}
+  .doc-nota p{margin:0;color:var(--muted);font-size:16px;max-width:44em}
+  .opz{display:inline-block;font-family:"Source Sans 3",sans-serif;font-size:13px;font-weight:600;letter-spacing:0;padding:2px 9px;border-radius:999px;border:1px solid var(--line);background:var(--concrete);color:var(--muted);vertical-align:4px;margin-left:6px}
+  @media (max-width:900px){.gruppi{grid-template-columns:1fr 1fr}}
+  @media (max-width:620px){.gruppi{grid-template-columns:1fr}}
   @media (max-width:900px){.lead-mag{grid-template-columns:1fr;gap:36px}.doc-card{justify-self:start}}
 </style>
 </head>
@@ -213,8 +229,8 @@
     </a>
     <nav class="top" aria-label="Principale">
       <a class="hide-s" href="#cosa-fa">Cosa fa</a>
+      <a class="hide-s" href="#documenti">I 30 documenti</a>
       <a class="hide-s" href="#chi-lo-usa">Chi lo usa</a>
-      <a class="hide-s" href="#come-si-parte">Come si parte</a>
       <a class="hide-s" href="#checklist">Checklist gratuita</a>
       <a class="btn btn-signal" href="https://app.genesivox.com">Accedi</a>
     </nav>
@@ -231,7 +247,7 @@
         <button type="button" class="btn btn-signal" data-apri-modulo>Richiedi la prova gratuita</button>
         <a class="btn btn-line" href="https://app.genesivox.com">Accedi all’app</a>
       </div>
-      <small>Si usa dal telefono, senza installare niente. Pensato per il D.Lgs. 81/2008.</small>
+      <small>Si usa dal telefono, senza installare niente. Copre i 30 documenti di sicurezza previsti per il cantiere dal D.Lgs. 81/2008 e dalle norme collegate.</small>
     </div>
 
     <div class="sign" role="img" aria-label="Esempio di cartello di cantiere con QR e stato dei documenti">
@@ -261,15 +277,15 @@
     <div class="feats">
       <article class="feat">
         <h3>Documenti sempre aggiornati</h3>
-        <p>Ogni documento ha la sua scadenza e un colore: verde se è in regola, giallo se sta per scadere, rosso se è scaduto. Non devi controllare a mano.</p>
-        <div class="tags"><span class="tag">DURC</span><span class="tag">POS e PSC</span><span class="tag">Nomine</span><span class="tag">Verbali</span></div>
+        <p>I 30 documenti del cantiere in un posto solo, ognuno con la sua scadenza e un colore: verde se è in regola, giallo se sta per scadere, rosso se è scaduto. Non devi controllare a mano.</p>
+        <div class="tags"><span class="tag">POS e PSC</span><span class="tag">DURC</span><span class="tag">Formazione</span><span class="tag">Idoneità</span><span class="tag">Verbali</span></div>
       </article>
       <article class="feat">
         <h3>Avvisi prima della scadenza</h3>
         <p>Il sistema controlla ogni notte e manda email e notifica sul telefono a chi deve agire: 30, 15 e 7 giorni prima, e il giorno stesso. Chi ha un documento scaduto riceve la richiesta di rinnovo.</p>
       </article>
       <article class="feat">
-        <h3>Presenze con il QR</h3>
+        <h3>Presenze con il QR <span class="opz">Modulo opzionale</span></h3>
         <p>Ogni cantiere ha il suo QR da appendere al cartello. I lavoratori hanno un tesserino con il proprio QR: una scansione e la presenza è registrata.</p>
       </article>
       <article class="feat">
@@ -280,7 +296,82 @@
   </div>
 </section>
 
-<section id="chi-lo-usa">
+<section id="documenti">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>I 30 documenti che GENESIVOX tiene sotto controllo</h2>
+      <p>Gli stessi della nostra checklist gratuita, divisi in sei gruppi. Per ognuno la piattaforma sa chi deve caricarlo e, se ha una validità, quando scade.</p>
+    </div>
+    <div class="gruppi">
+      <article class="gruppo">
+        <h3>Piani e rischi <span>6</span></h3>
+        <ol>
+          <li><span>POS – Piano Operativo di Sicurezza</span></li>
+          <li><span>PSC – Piano di Sicurezza e Coordinamento</span></li>
+          <li><span>DVR – Valutazione dei rischi</span></li>
+          <li><span>DUVRI</span></li>
+          <li><span>PiMUS</span></li>
+          <li><span>Fascicolo dell’opera</span></li>
+        </ol>
+      </article>
+      <article class="gruppo">
+        <h3>Avvio e contratti <span>4</span></h3>
+        <ol>
+          <li><span>Notifica preliminare</span></li>
+          <li><span>Titolo edilizio</span></li>
+          <li><span>Contratti di appalto e subappalto</span></li>
+          <li><span>Congruità della manodopera</span></li>
+        </ol>
+      </article>
+      <article class="gruppo">
+        <h3>Imprese <span>6</span></h3>
+        <ol>
+          <li><span>DURC</span><em>120 giorni</em></li>
+          <li><span>Visura camerale</span><em>da aggiornare</em></li>
+          <li><span>Nomina del RSPP</span></li>
+          <li><span>Nomina o elezione del RLS</span></li>
+          <li><span>Nomina del medico competente</span></li>
+          <li><span>Modello 231 (MOG)</span></li>
+        </ol>
+      </article>
+      <article class="gruppo">
+        <h3>Lavoratori <span>5</span></h3>
+        <ol>
+          <li><span>Attestati di formazione</span><em>5 anni</em></li>
+          <li><span>Formazione ponteggi</span><em>4 anni</em></li>
+          <li><span>Consegna dei DPI</span></li>
+          <li><span>Idoneità sanitaria</span><em>scade</em></li>
+          <li><span>Abilitazione attrezzature</span><em>5 anni</em></li>
+        </ol>
+      </article>
+      <article class="gruppo">
+        <h3>Macchine e impianti <span>4</span></h3>
+        <ol>
+          <li><span>Impianto elettrico e di terra</span><em>2 anni</em></li>
+          <li><span>Macchine: marcatura CE e libretti</span><em>verifiche</em></li>
+          <li><span>Calcoli e collaudi delle strutture</span></li>
+          <li><span>Schede di sicurezza delle sostanze</span></li>
+        </ol>
+      </article>
+      <article class="gruppo">
+        <h3>Coordinamento e controlli <span>5</span></h3>
+        <ol>
+          <li><span>Verbali di coordinamento del CSE</span></li>
+          <li><span>Comunicazioni tra le imprese</span></li>
+          <li><span>Infortuni e quasi-incidenti</span></li>
+          <li><span>Verbali di ispezione ASL e Ispettorato</span></li>
+          <li><span>Provvedimenti di sospensione</span></li>
+        </ol>
+      </article>
+    </div>
+    <div class="doc-nota">
+      <p>Non tutti servono in ogni cantiere: dipende da lavorazioni, imprese e ponteggi. La scelta resta a datore di lavoro, CSP/CSE e RSPP; GENESIVOX la rende tracciabile.</p>
+      <button type="button" class="btn btn-line" data-apri-checklist>Scarica la checklist in PDF</button>
+    </div>
+  </div>
+</section>
+
+<section id="chi-lo-usa" class="alt">
   <div class="wrap">
     <div class="sec-head">
       <h2>Ognuno vede quello che gli serve</h2>
@@ -296,7 +387,7 @@
   </div>
 </section>
 
-<section id="come-si-parte" class="alt">
+<section id="come-si-parte">
   <div class="wrap">
     <div class="sec-head">
       <h2>Si parte subito</h2>
@@ -311,7 +402,7 @@
 </section>
 
 
-<section>
+<section class="alt">
   <div class="wrap trust">
     <div>
       <h2 style="font-size:clamp(28px,3.6vw,40px);font-weight:800">I dati dei lavoratori restano sotto controllo</h2>
@@ -326,7 +417,7 @@
   </div>
 </section>
 
-<section id="checklist" class="alt">
+<section id="checklist">
   <div class="wrap lead-mag">
     <div class="doc-card" aria-hidden="true">
       <div class="band"></div>
@@ -359,6 +450,7 @@
     <div>
       <h2>Provalo su un cantiere vero, gratis</h2>
       <p>30 giorni senza costi. Se attivi un cantiere entro 14 giorni, la prova si estende fino a 60.</p>
+      <p><strong style="color:#fff">Offerta di lancio per i primi 20 iscritti:</strong> configuriamo insieme a te l’account e il primo cantiere.</p>
     </div>
     <div class="actions">
       <button type="button" class="btn btn-signal" data-apri-modulo>Richiedi la prova gratuita</button>
@@ -372,7 +464,8 @@
   <div class="wrap">
     <div>
       <strong>GENESIVOX S.r.l.</strong><br>
-      <!-- DA COMPLETARE: sede legale, P. IVA, numero REA, capitale sociale -->
+      <!-- DA COMPLETARE prima dei clienti paganti: sostituisci la riga sotto con
+           Sede legale: ... · P. IVA ... · REA ... · Capitale sociale € ... i.v. -->
       Tecnologia oggetto di domanda di brevetto.
     </div>
     <div>
