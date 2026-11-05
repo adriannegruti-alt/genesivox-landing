@@ -49,6 +49,7 @@ module.exports = async (req, res) => {
 <p>Usala prima dell'avvio dei lavori, all'ingresso di ogni nuova impresa e prima di un sopralluogo.</p>
 <p>Se vuoi smettere di rincorrere questi documenti a mano, GENESIVOX li raccoglie in un unico QR-code del cantiere e avvisa prima delle scadenze. Per i primi 20 iscritti la prova è gratuita per 30 giorni e configuriamo insieme il primo cantiere: <a href="${SITO}/#prova">${SITO.replace('https://', '')}</a>, oppure rispondi a questa email.</p>
 <p>Buon lavoro,<br>GENESIVOX</p>
+<p>Ogni settimana pubblichiamo consigli pratici sulla sicurezza in cantiere: <a href="https://www.linkedin.com/company/genesivox">seguici su LinkedIn</a>.</p>
 <p style="color:#6B7785;font-size:12px;margin-top:24px">Ricevi questa email perché hai richiesto la checklist su genesivox.com. GENESIVOX S.r.l. · info@genesivox.com</p>
 </div>`;
 
